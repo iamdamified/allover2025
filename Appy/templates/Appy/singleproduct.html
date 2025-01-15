@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Product</title>
+</head>
+{% block content %}
+<body>
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ product.image.url }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <!-- <a class="mr-2" href="#">{{ post.author }}</a> -->
+            <!-- <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> -->
+          </div>
+          <!-- The below means, goto url, select name= single, and use the "product" equivalent to the get object by id using the id of current product whose name is cicked -->
+          <h2><a class="article-title" href="">{{ product.name }}</a></h2>
+          <p class="article-content">{{ product.description }}</p>
+          <h2 class="article-content">#{{ product.price }}</h2>
+        </div>
+    </article>
+        
+</body>
+{% endblock content %}
+</html>

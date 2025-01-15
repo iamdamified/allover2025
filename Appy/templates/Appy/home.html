@@ -1,0 +1,23 @@
+{% extends "Appy/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <title>Home</title>
+</head>
+{% block content %}
+<body>
+    
+    <h1>FIRST APPY HOME TEMPLATE DESIGN</h1>
+    {% for student in student_list %}
+    <h2>{{student.name}}</h2>
+    <h2>{{student.email}}</h2>
+    <h2>{{student.mat_number}}</h2>
+    <h2>{{student.dept}}</h2>
+
+    {% endfor %}
+</body>
+{% endblock content %}
+</html>
