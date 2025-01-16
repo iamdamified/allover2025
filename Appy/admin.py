@@ -1,7 +1,18 @@
 from django.contrib import admin
-from .models import *
+from .models import Products, Student
 
 # Register your models here.
 
-admin.site.register(Student)
-admin.site.register(Product)
+
+admin.site.register(Products)
+# admin.site.register(Student)
+
+
+
+
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ["name","mat_number", "email"]
+    list_filter = ["dept"]
+    list_editable = ["email"]
+
+admin.site.register(Student, StudentAdmin)

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Student, Product
+from .models import Student, Products
 
 # Create your views here.
 # This uses only views.py, settings.py, both urls.py to diplay httpresponse only without templates
@@ -14,14 +14,14 @@ def student_page(request):
 
 
 def productpage(request):
-    products = Product.objects.all()
+    products = Products.objects.all()
     context = {
         "all_products": products
     }
     return render(request, "Appy/product.html", context)
 
 def singleProductView(request, id):
-    single_product = Product.objects.get(id=id)
+    single_product = Products.objects.get(id=id)
     context = {
         "product": single_product
     }
