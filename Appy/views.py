@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Student, Products
+from .models import *
+from .forms import ProductsForm
 
 # Create your views here.
 # This uses only views.py, settings.py, both urls.py to diplay httpresponse only without templates
@@ -26,3 +27,19 @@ def singleProductView(request, id):
         "product": single_product
     }
     return render(request, "Appy/singleproduct.html", context)
+
+def formpage(request):
+    products = Products.objects.all()
+    if request.method == "POST":
+        form = ProductsForm(request.POST, request.FILES)#collect data
+        if form.is_valid(): #validate data
+            form.save() # save data
+            return HttpResponse("Your product was successfully created")# then output data
+    else:
+        form = ProductsForm()
+
+    context = {
+        'product_list': products,
+        'myform': form
+    }
+    return render(request, "Appy/productform.html", context)
