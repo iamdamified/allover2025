@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 
@@ -12,6 +13,13 @@ class Student(models.Model):
 def __str__ (self):
     return self.mat_number
 
+
+# Regular Form for Student which can be placed in any file.
+class StudentForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField(label="your email")
+    mat_number = forms.IntegerField()
+    dept = forms.CharField(max_length=50)
 
 
 CATEGORY_CHOICES = (
