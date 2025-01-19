@@ -7,5 +7,6 @@ urlpatterns = [
     path('students/', student_page),
     path("product/", productpage, name="product"),
     path("<int:id>/", singleProductView, name="singleproduct"),
-    path("prodform/", formpage, name="prodform")
+    path("prodform/", formpage, name="prodform"),
+    path("studentform/", regformpage, name="regform")
 ]

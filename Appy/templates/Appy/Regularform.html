@@ -12,8 +12,8 @@
 
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ myform.as_p }}
-        <input type="submit" value="save info">
+        {{ Sform.as_p }}
+        <input type="submit" value="create profile">
     </form>
 </body>
 {% endblock content %}

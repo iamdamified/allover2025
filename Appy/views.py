@@ -29,7 +29,32 @@ def singleProductView(request, id):
     }
     return render(request, "Appy/singleproduct.html", context)
 
-# Format 1
+
+
+
+# Regular/Base Form: form can be defined in any file and called from it.
+def regformpage(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid(): #Below this valid we cannot use save, but cleaned data format
+            student_name = form.cleaned_data["name"]
+            student_email = form.cleaned_data["email"]
+            student_mat_number = form.cleaned_data["mat_number"]
+            student_dept = form.cleaned_data["dept"]
+
+            Student.objects.create(name=student_name, email=student_email, mat_number=student_mat_number, dept=student_dept)
+            return HttpResponse("Thank you")
+        
+    else:
+        form = StudentForm(request.POST)
+    context = {
+        "Sform": form
+    }
+    return render(request, "Appy/Regularform.html", context)
+
+
+
+# Format 1 Model Form
 # def formpage(request):
 #     products = Products.objects.all()
 #     if request.method == "POST":
@@ -46,7 +71,7 @@ def singleProductView(request, id):
 #     }
 #     return render(request, "Appy/productform.html", context)
 
-# Format 2
+# Format 2 Model Form
 def formpage(request):
     if request.method == "GET":
         products = Products.objects.all()
@@ -63,19 +88,3 @@ def formpage(request):
             return HttpResponse("Your product was successfully created")
         
     return render(request, "Appy/productform.html", context)
-        
-    
-
-def regularformpage(request):
-    if request.method == 'POST':
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("Thank you")
-        
-    else:
-        form = StudentForm(request.POST)
-    context = {
-        "Sform": form
-    }
-    return render(request, "Appy/Regularform.html", context)
