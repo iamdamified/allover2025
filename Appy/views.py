@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from .forms import ProductsForm
 
+
 # Create your views here.
 # This uses only views.py, settings.py, both urls.py to diplay httpresponse only without templates
 def function_name(request):
@@ -64,3 +65,17 @@ def formpage(request):
     return render(request, "Appy/productform.html", context)
         
     
+
+def regularformpage(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Thank you")
+        
+    else:
+        form = StudentForm(request.POST)
+    context = {
+        "Sform": form
+    }
+    return render(request, "Appy/Regularform.html", context)
