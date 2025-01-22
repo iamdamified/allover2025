@@ -43,7 +43,7 @@ def regformpage(request):
             student_dept = form.cleaned_data["dept"]
 
             Student.objects.create(name=student_name, email=student_email, mat_number=student_mat_number, dept=student_dept)
-            return HttpResponse("Thank you")
+            return HttpResponse("Thank you for registering")
         
     else:
         form = StudentForm(request.POST)
