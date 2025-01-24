@@ -1,8 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-from .forms import ProductsForm
+from .forms import ProductsForm, UserRegistrationForm
+from django.contrib.auth.models import User
+from django.contrib import auth
 
+def useregistration(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("You are registered as a new member")
+        
+    else:
+        form = UserRegistrationForm()
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "Appy/useregform.html", context)
 
 # Create your views here.
 # This uses only views.py, settings.py, both urls.py to diplay httpresponse only without templates
