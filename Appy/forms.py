@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
-# The creation form of django like in cmd has 3 fields only, therefore email addition through extension
+# The creation form of django like in cmd has 3 fields only, therefore email addition through extension of model
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(help_text="Please enter valid email")
 

@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import ProductsForm, UserRegistrationForm
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 
+# Creating a user form for a program through Django user form by calling the method in forms.py
 def useregistration(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -20,6 +21,33 @@ def useregistration(request):
     }
 
     return render(request, "Appy/useregform.html", context)
+
+# Creating a customized user form which collects data from frontend form and stored as User
+def customfrontendusereg(request):
+    if request.method == "POST":
+        your_username = request.POST["username"]
+        your_email = request.POST["email"]
+        your_password1 = request.POST["password1"]
+        your_password2 = request.POST["password2"]
+
+        if your_password1 == your_password2:
+            if User.objects.filter(username=your_username).exists():
+                messages.error(request, "User already exists")
+                return redirect("customusereg")
+            if User.objects.filter(email=your_email).exists():
+                messages.error(request, "That email has been taken")
+                return redirect("customusereg")
+            else:
+                User.objects.create_user(username=your_username, email=your_email, password=your_password1)
+                # User.objects.create_superuser(username=your_username, email=your_email, password=your_password1)
+                messages.error(request, "Your account has been created")
+                return redirect("customusereg")
+        
+        else:
+            messages.error(request, "Both passwords must match")
+            return redirect("customusereg")
+    else:
+        return render(request, "Appy/customuseregform.html")
 
 # Create your views here.
 # This uses only views.py, settings.py, both urls.py to diplay httpresponse only without templates
