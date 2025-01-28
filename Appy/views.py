@@ -171,3 +171,25 @@ def formpage(request):
 
 
 # # Learn more about SENDGRID on twilo.com to know how to distribute newsletters to emails collected from this form (twilo.com/blog/email-activation-django-sendgrid)
+
+
+def frontend_login(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        # No .cleaned, but authentication because this is dealing with a frontend login form and not ordinary data form
+        user = auth.authenticate(username=username, passwprd=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect("/")
+        
+        else:
+            messages.error(request, "Invalid creentials")
+            return redirect("login")
+    return render(request, "Appy/frontlogin.html")
+
+
+def frontend_logout(request):
+    auth.logout(request)
+    return redirect("/")

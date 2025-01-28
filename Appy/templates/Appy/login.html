@@ -1,0 +1,23 @@
+{% extends "Appy/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                <!-- This form will only use django inbuilt as in LoginView function and not what you have in other models. -->
+                <!-- Note that by default it would take you to account/profile, so you may either create a path for it or redirect it to your desired page -->
+                {{ form }} 
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign In</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Don't Have An Account? <a class="ml-2" href="">Sign Up</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
