@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Products, Student
+from .models import Products, Student, Profile
 
 # Register your models here.
 
@@ -16,3 +16,6 @@ class StudentAdmin(admin.ModelAdmin):
     list_editable = ["email"]
 
 admin.site.register(Student, StudentAdmin)
+
+
+admin.site.register(Profile)
