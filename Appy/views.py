@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import ProductsForm, UserRegistrationForm
-from django.contrib.auth.models import User
+from .forms import ProductsForm, UserRegistrationForm, ProfileForm
+from django.contrib.auth.models import User 
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 
 # Create your views here.
 # This uses only views.py, settings.py, both urls.py to diplay httpresponse only without templates
@@ -195,3 +196,23 @@ def frontend_login(request):
 def frontend_logout(request):
     auth.logout(request)
     return redirect("/")
+
+
+# User Proxy Extension/PersonManager function usage
+# This in a function will display only active users in the application/server.
+active_users = Person.objects.active_users()
+print(active_users)
+
+
+# This function is applicable to update or create only the currently logged in user's profile.
+def edit_profile(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Redirect to a profile view
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'Appy/userprofile.html', {'form': form})
+

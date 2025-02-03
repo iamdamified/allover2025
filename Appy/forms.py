@@ -1,5 +1,5 @@
 from django import forms
-from .models import Products
+from .models import Products, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -21,4 +21,14 @@ class ProductsForm(forms.ModelForm):
         fields = ["name","description","price","category","image"]
         # fields = "__all__"
 
+
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'profile_picture']
+
+
+        
 

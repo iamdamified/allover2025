@@ -2,10 +2,18 @@ from django.db import models
 from django import forms
 # Importations for Inbuilt User Model Extension.
 from django.contrib.auth.models import User
+from .managers import PersonManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+# Inbuilt User Extension to change UserModel behaviour by Using Proxy/PersonManager when no extra data is needed
+class Person(User):
+    objects = PersonManager()
+
+    class Meta:
+        proxy = True
+        # ordering = ("first_name")
 
 # Inbuilt User Model Extension. Using One to One Link
 class Profile(models.Model):
