@@ -56,6 +56,22 @@ def regformpage(request):
     }
     return render(request, "Appy/Regularform.html", context)
 
+def activepersonuserpage(request):
+    active_users = Person.objects.active_users()
+    context = {
+        "active_users": active_users
+    }
+    return render(request, "Appy/display_person_users.html", context)
+#     if request.method == "POST"
+# print(active_users)
+
+def personuserpage(request):
+    personuser = Person.objects.all()
+    context = {
+        "personuser": personuser
+    }
+    return render(request, "Appy/display_person_users.html", context)
+
 
 
 # Format 1 Model Form and with Initialization of values.
@@ -138,7 +154,7 @@ def useregistration(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("You are registered as a new member")
+            return redirect("personuser")
         
     else:
         form = UserRegistrationForm()

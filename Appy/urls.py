@@ -16,5 +16,6 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(template_name="Appy/logout.html"), name="logout"),
     path("frontlogin/", frontend_login, name="frontlogin"),
     path("frontlogout/", frontend_logout, name="frontlogout"),
-    path("userprofile/", edit_profile, name="profile")
+    path("userprofile/", edit_profile, name="profile"),
+    path("personusers/", activepersonuserpage, name="personuser")
 ]
